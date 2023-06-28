@@ -3,6 +3,7 @@ package com.dicoding.mystudentdata.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
+import javax.sql.DataSource
 
 @Dao
 interface StudentDao {
@@ -19,7 +20,7 @@ interface StudentDao {
     suspend fun insertCourseStudentCrossRef(courseStudentCrossRef: List<CourseStudentCrossRef>)
 
     @RawQuery(observedEntities = [Student::class])
-    fun getAllStudent(query : SupportSQLiteQuery): LiveData<List<Student>>
+    fun getAllStudent(query : SupportSQLiteQuery): androidx.paging.DataSource.Factory<Int, Student>
 
     @Transaction
     @Query("SELECT * from student")
